@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Tracker</string>
+    <string name="launch_activity">Launch activity</string>
+
+
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
+    <string name="ok">OK</string>
+<!--    BUtton-->
+    <string name="lokalizacja">LOKALIZACJA</string>
+    <string name="link">LINK</string>
+    <string name="bluetooth">BLUETOOTH</string>
+    <string name="inne">INNE</string>
+    <string name="wyczysc_logi">WYCZYŚĆ LOGI</string>
+
+    <!--    parametry-->
+    <string name="para_name">global_para</string>
+    <string name="main_logcat">main_logcat</string>
+    <string name="log">log</string>
+
+<!--    inne-->
+    <string name="start">start</string>
+
+
+
+</resources>

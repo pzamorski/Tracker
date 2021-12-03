@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundMain">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/text1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="1dp"
+        android:text="Timeout dla usługi GPS[s]"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/editTimeout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonSaveTimeout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZAPISZ TIMEOUT" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textResetKroku"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="1dp"
+        android:text="Aktualny krok: "
+        android:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:gravity="center"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/resetPara"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RESET PARAMETRÓW" />
+
+
+
+</LinearLayout>

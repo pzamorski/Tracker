@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundMain">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/TextView02"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="1dp"
+        android:text="Dostępne Urządzenia:"
+        android:visibility="visible" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listBluetooth"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textDodane"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="1dp"
+        android:text="Dodane Urządzenia:"
+        android:visibility="visible" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listBluetoothDodane"/>
+
+    <Switch
+        android:id="@+id/switchBluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:text="Wyzwalacz Bluetooth" />
+
+
+</LinearLayout>

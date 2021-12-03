@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundMain">
+
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/do_celu"
+        android:text="Odległość otwarcia [m]:"
+/>
+
+    <EditText
+        android:id="@+id/odleglosc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="ODLEGŁOC" />
+
+    <Button
+        style="@style/mybuttonstyle"
+        android:id="@+id/save_dist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZAPISZ" />
+
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gps"
+        android:text="Odległość Przełączenia NET->GPS [m]:" />
+
+    <EditText
+        android:id="@+id/odleglosc_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="ODLEGŁOC" />
+
+    <Button
+        style="@style/mybuttonstyle"
+        android:id="@+id/save_dist_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZAPISZ" />
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/network"
+        android:text="Odległość Wyjazdu [m]:"
+         />
+
+    <EditText
+        android:id="@+id/odleglosc_krok1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="ODLEGŁOC" />
+
+    <Button
+        style="@style/mybuttonstyle"
+        android:id="@+id/save_dist_network"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZAPISZ" />
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textSpeed"
+        android:text="Prędkość wyzwolenia [km/h]:"
+         />
+
+    <EditText
+        android:id="@+id/editSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="0" />
+
+    <Button
+        style="@style/mybuttonstyle"
+        android:id="@+id/buttonSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZAPISZ" />
+
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextView08"
+        android:text="Docelowa lokalizacja" />
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextView09"
+        android:text="Latitude:"
+ />
+
+    <EditText
+        android:id="@+id/lat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number|numberDecimal"
+        android:text="51.277536" />
+
+    <TextView
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextView010"
+        android:text="Longitude:"
+  />
+
+    <EditText
+        android:id="@+id/lon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:text="15.564793" />
+
+    <Button
+        style="@style/mybuttonstyle"
+        android:id="@+id/save_lok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZAPISZ" />
+
+
+
+</LinearLayout>
