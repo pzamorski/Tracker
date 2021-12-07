@@ -62,7 +62,7 @@ public class pracaWtle extends Service {
     public static final int POWER_SAVE_METER = 5000;
 
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
-    public static final String CHANNEL_ID2 = "ForegroundServiceChannel2";
+
 
     public static final String DOJAZD_DO_CELU = "0";
     public static final String DOJAZD_DO_CELU_GPS = "1";
@@ -86,6 +86,7 @@ public class pracaWtle extends Service {
     int dystans_do_zadziałania;
     int dystans_do_wyjazdu;
     int incress_dyst_of_speed = 0;
+
     boolean power_save_mode=false;
 
     Context context;
@@ -101,7 +102,6 @@ public class pracaWtle extends Service {
         };
         context=getBaseContext();
     }
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -146,7 +146,6 @@ public class pracaWtle extends Service {
         return Service.START_STICKY;
     }
 
-
     @Override
     public IBinder onBind(Intent intent) {
         //TODO for communication return IBinder implementation
@@ -160,36 +159,6 @@ public class pracaWtle extends Service {
         super.onDestroy();
         this.stopSelf();
     }
-
-//    //The BroadcastReceiver that listens for bluetooth broadcasts
-//    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-//
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            String action = intent.getAction();
-//            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-//
-//
-//            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-//                //Device is now connected
-//                BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
-//                if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
-//                    config.log("Bluetooth Połączony: " + device.getName(), bluetooh);
-//                    UpdateNoification("Lokalizacja: Aktywna.");
-//                    setUpdateNetwork(UPDATE_INTERVAL_FAST);
-//                }
-//            } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action) && config.getParaBoolean("trigerBluetoth") == true) {
-//                //Device is about to disconnect
-//                if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
-//                    config.log("Bluetooth Rozłączony: " + device.getName(), bluetooh);
-//                    stopLocationUpdates();
-//                    UpdateNoification("Lokalizacja: Nie aktywna.");
-//
-//                }
-//            }
-//        }
-//    };
-
 
     private void openGate(String url) {
         String URL = url;
