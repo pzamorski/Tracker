@@ -57,7 +57,7 @@ public class pracaWtle extends Service {
     private LocationCallback locationCallback;
 
     private long UPDATE_INTERVAL_FAST = 1000 * 1;  /* 1 secs */
-    private long UPDATE_INTERVAL_SAVE_BATERRY = 1000 * 300; /* 5 minut */
+    private long UPDATE_INTERVAL_SAVE_BATERRY = 1000 * 200; /* 5 minut */
 
     public static final int POWER_SAVE_METER = 5000;
 
@@ -108,11 +108,6 @@ public class pracaWtle extends Service {
 
         config.init("global_para");
         config.init_log("main_logcat", "log");
-//dla bluetooh
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
-//        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-//        this.registerReceiver(mReceiver, filter);
 
 //notyficacja
         createNotificationChannel();
@@ -126,13 +121,8 @@ public class pracaWtle extends Service {
                 .setGroup("data")
                 .build();
         startForeground(1, notification);
+        setUpdateNetwork(UPDATE_INTERVAL_FAST);
 
-//start jesli bluettoh triger nie właczony
-        //if (!config.getParaBoolean("trigerBluetoth")) {
-            //setUpdateNetwork(UPDATE_INTERVAL_FAST);
-            setUpdateNetwork(UPDATE_INTERVAL_FAST);
-
-       // }
 
 //zmienne przepisywane przy starcie usługi
         speed = config.getParaInt("speed");
@@ -148,9 +138,6 @@ public class pracaWtle extends Service {
         if (homeLongitude != 0) {
             locationA.setLongitude(homeLongitude);
         }
-
-
-        Toast.makeText(this, "Start usługi", Toast.LENGTH_SHORT).show();
 
         if (location != null) {
             onLocationChanged(location);
@@ -168,7 +155,7 @@ public class pracaWtle extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(context, "Stop usługi gps", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Stop usługi gps", Toast.LENGTH_SHORT).show();
         stopLocationUpdates();
         super.onDestroy();
         this.stopSelf();
@@ -361,13 +348,18 @@ public class pracaWtle extends Service {
         float curentlat = (float) (location.getLatitude());
         float curentlng = (float) (location.getLongitude());
         float current_speed = (float) location.getSpeed();
-        config.setPara("curentlat", curentlat);
-        config.setPara("curentlng", curentlng);
         distance_in_meter = location.distanceTo(locationA);
-        config.setPara("ui_dist", (int) distance_in_meter);
         String step = config.getParaString("krok");
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         int INTdistance_in_meter = (int) distance_in_meter;
+
+        if(config.getParaBoolean("isAktive"))
+        {
+            config.setPara("curentlat", curentlat);
+            config.setPara("curentlng", curentlng);
+            config.setPara("ui_dist", (int) distance_in_meter);
+        }
+
 
 //------główny watek--------------------------------------------------------------------------------
         switch (step) {

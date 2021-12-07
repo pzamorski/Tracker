@@ -123,12 +123,26 @@ public class MainActivity extends Activity {
         textTimeout.setText("Timeout GPS: "+config.getParaString("timeout_gps")+" s");
 
         config.log("Resume Main Activity",info);
+        config.setPara("isAktive",true);
         super.onResume();
     }
 
     @Override
+    protected void onStart() {
+        config.setPara("isAktive",true);
+        super.onStart();
+    }
+
+    @Override
     protected void onPause() {
+        config.setPara("isAktive",false);
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        config.setPara("isAktive",false);
+        super.onDestroy();
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
