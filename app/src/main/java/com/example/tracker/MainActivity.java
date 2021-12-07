@@ -189,7 +189,7 @@ public class MainActivity extends Activity {
                                 break;
                         }
 
-                        if(isMyServiceRunning(pracaWtle.class)){
+                        if(isMyServiceRunning(bluetooth.class)){
                             start.setBackgroundColor(Color.parseColor("#FF47780E"));
 
                         }else {
@@ -349,10 +349,15 @@ public class MainActivity extends Activity {
 
 
 
-                Intent i = new Intent(getApplicationContext(), pracaWtle.class);
-                if(!isMyServiceRunning(pracaWtle.class)){
+                Intent i = new Intent(getApplicationContext(), bluetooth.class);
+                Intent i2 = new Intent(getApplicationContext(), pracaWtle.class);
+                if(!isMyServiceRunning(bluetooth.class)){
                     MainActivity.this.startService(i);}else {
                     MainActivity.this.stopService(i);
+                    if(isMyServiceRunning(pracaWtle.class))
+                    {
+                        MainActivity.this.stopService(i2);
+                    }
                 }
             }
         });

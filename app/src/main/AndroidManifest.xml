@@ -28,6 +28,13 @@
             android:name=".pracaWtle"
             android:enabled="true"
             android:exported="true"
+
+            ></service>
+        <service
+            android:name=".bluetooth"
+            android:enabled="true"
+            android:exported="true"
+
             ></service>
 
 
@@ -36,6 +43,7 @@
         <activity android:label="@string/app_name" android:name=".ustawienia_bluetooth"/>
         <activity android:label="@string/app_name" android:name=".ustawienia_inne"/>
         <activity android:label="@string/app_name" android:name=".extra"/>
+        <activity android:label="@string/app_name" android:name=".bluetooth"/>
 
     </application>
 

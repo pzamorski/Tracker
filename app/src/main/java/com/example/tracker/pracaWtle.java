@@ -1,6 +1,7 @@
 package com.example.tracker;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -73,7 +74,6 @@ public class pracaWtle extends Service {
     public static final String network = GlobalMethod.network;
     public static final String gps = GlobalMethod.gps;
     public static final String notyfication = GlobalMethod.notyfication;
-    public static final String bluetooh = GlobalMethod.bluetooh;
 
 
     Location locationA = new Location("HOME");  //lokalizacja bramy
@@ -88,7 +88,7 @@ public class pracaWtle extends Service {
     int incress_dyst_of_speed = 0;
     boolean power_save_mode=false;
 
-
+    Context context;
     @Override
     public void onCreate() {
 
@@ -99,6 +99,7 @@ public class pracaWtle extends Service {
                 onLocationChanged(locationResult.getLastLocation());
             }
         };
+        context=getBaseContext();
     }
 
 
@@ -108,10 +109,10 @@ public class pracaWtle extends Service {
         config.init("global_para");
         config.init_log("main_logcat", "log");
 //dla bluetooh
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
-        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        this.registerReceiver(mReceiver, filter);
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+//        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+//        this.registerReceiver(mReceiver, filter);
 
 //notyficacja
         createNotificationChannel();
@@ -127,9 +128,11 @@ public class pracaWtle extends Service {
         startForeground(1, notification);
 
 //start jesli bluettoh triger nie właczony
-        if (!config.getParaBoolean("trigerBluetoth")) {
+        //if (!config.getParaBoolean("trigerBluetoth")) {
+            //setUpdateNetwork(UPDATE_INTERVAL_FAST);
             setUpdateNetwork(UPDATE_INTERVAL_FAST);
-        }
+
+       // }
 
 //zmienne przepisywane przy starcie usługi
         speed = config.getParaInt("speed");
@@ -165,40 +168,40 @@ public class pracaWtle extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(getApplicationContext(), "Stop usługi", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Stop usługi gps", Toast.LENGTH_SHORT).show();
         stopLocationUpdates();
         super.onDestroy();
         this.stopSelf();
     }
 
-    //The BroadcastReceiver that listens for bluetooth broadcasts
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-
-            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-                //Device is now connected
-                BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
-                if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
-                    config.log("Bluetooth Połączony: " + device.getName(), bluetooh);
-                    UpdateNoification("Lokalizacja: Aktywna.");
-                    setUpdateNetwork(UPDATE_INTERVAL_FAST);
-                }
-            } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action) && config.getParaBoolean("trigerBluetoth") == true) {
-                //Device is about to disconnect
-                if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
-                    config.log("Bluetooth Rozłączony: " + device.getName(), bluetooh);
-                    stopLocationUpdates();
-                    UpdateNoification("Lokalizacja: Nie aktywna.");
-
-                }
-            }
-        }
-    };
+//    //The BroadcastReceiver that listens for bluetooth broadcasts
+//    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String action = intent.getAction();
+//            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+//
+//
+//            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+//                //Device is now connected
+//                BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+//                if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
+//                    config.log("Bluetooth Połączony: " + device.getName(), bluetooh);
+//                    UpdateNoification("Lokalizacja: Aktywna.");
+//                    setUpdateNetwork(UPDATE_INTERVAL_FAST);
+//                }
+//            } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action) && config.getParaBoolean("trigerBluetoth") == true) {
+//                //Device is about to disconnect
+//                if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
+//                    config.log("Bluetooth Rozłączony: " + device.getName(), bluetooh);
+//                    stopLocationUpdates();
+//                    UpdateNoification("Lokalizacja: Nie aktywna.");
+//
+//                }
+//            }
+//        }
+//    };
 
 
     private void openGate(String url) {
@@ -385,8 +388,12 @@ public class pracaWtle extends Service {
                         config.log("Przygotowanie do otwarcia bramy", notyfication);
                         openGate(config.getParaString("link"));
                     }
-                    stopLocationUpdates();
                     NextStep(WYJAZD_OD_CELU);// lub timeout dla gps do kroku DOJAZD_DO_CELU gps->network
+                    Intent i = new Intent(context, pracaWtle.class);
+                    if(isMyServiceRunning(pracaWtle.class))
+                    {
+                        context.stopService(i);
+                    }
                 }
                 break;
             case WYJAZD_OD_CELU:
@@ -467,4 +474,15 @@ public class pracaWtle extends Service {
             }
         }.start();
     }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
