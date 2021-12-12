@@ -31,6 +31,7 @@
 
             ></service>
         <service
+            android:foregroundServiceType="connectedDevice"
             android:name=".bluetooth"
             android:enabled="true"
             android:exported="true"

@@ -151,6 +151,22 @@ public class GlobalMethod {
 
         save_log_to_file(this.getNameLogFile(),dataTextWithStyle+"\n");
     }
+    public  void log(String text, String type, boolean isUIisActive){
+
+        if(isUIisActive)
+            {
+        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        boolean logd=true;
+
+
+        if(logd){Log.d(this.getNameTagLogcat(),text);}
+
+        String dataTextWithStyle = "<font color='"+type+"'>"+currentTime+" "+text+"</font><br>";
+
+        save_log_to_file(this.getNameLogFile(),dataTextWithStyle+"\n");
+            }
+    }
     public String logLoad(){
     return load_log_from_file(this.getNameLogFile());
     }

@@ -321,8 +321,9 @@ public class pracaWtle extends Service {
         String step = config.getParaString("krok");
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         int INTdistance_in_meter = (int) distance_in_meter;
+        boolean isUIisActive=config.getParaBoolean("isAktive");
 
-        if(config.getParaBoolean("isAktive"))
+        if(isUIisActive)
         {
             config.setPara("curentlat", curentlat);
             config.setPara("curentlng", curentlng);
@@ -333,7 +334,7 @@ public class pracaWtle extends Service {
 //------główny watek--------------------------------------------------------------------------------
         switch (step) {
             case DOJAZD_DO_CELU:
-                config.log("Strefa GPS: " + INTdistance_in_meter + " < " + distans_switch_to_gps, network);
+                config.log("Strefa GPS: " + INTdistance_in_meter + " < " + distans_switch_to_gps, network,isUIisActive);
                 UpdateNoification("Czas: " + currentTime + "\nDojazd do strefy GPS");
                 if (distance_in_meter < distans_switch_to_gps) {
                     config.log("W zasiegu dla GPS", network);
@@ -342,7 +343,7 @@ public class pracaWtle extends Service {
                 }
                 break;
             case DOJAZD_DO_CELU_GPS:
-                config.log("Strefa Bramy: " + INTdistance_in_meter + " < " + dystans_do_zadziałania + " " + current_speed + " >= " + speed, gps);
+                config.log("Strefa Bramy: " + INTdistance_in_meter + " < " + dystans_do_zadziałania + " " + current_speed + " >= " + speed, gps,isUIisActive);
                 UpdateNoification("Czas: " + currentTime + "\nDojazd do bramy");
                 if (distance_in_meter < (dystans_do_zadziałania + incress_dyst_of_speed) && current_speed >= speed) {
                     if (config.getParaBoolean("automat") == true) {
@@ -358,7 +359,7 @@ public class pracaWtle extends Service {
                 }
                 break;
             case WYJAZD_OD_CELU:
-                config.log("Wyjazd ze strefy: " + INTdistance_in_meter + " > " + dystans_do_wyjazdu, network);
+                config.log("Wyjazd ze strefy: " + INTdistance_in_meter + " > " + dystans_do_wyjazdu, network,isUIisActive);
                 UpdateNoification("Czas: " + currentTime + "\nWyjazd ze strefy GPS");
                 if (distance_in_meter > dystans_do_wyjazdu) {
                     config.log("Precyzyjny wyjazd z obszaru bramy", network);
@@ -367,7 +368,7 @@ public class pracaWtle extends Service {
                 }
                 break;
             case WYJAZD_OD_CELU_GPS:
-                config.log("Precyzyjny wyjazd: " + INTdistance_in_meter + " > " + dystans_do_wyjazdu, gps);
+                config.log("Precyzyjny wyjazd: " + INTdistance_in_meter + " > " + dystans_do_wyjazdu, gps,isUIisActive);
                 UpdateNoification("Czas: " + currentTime + "\nWyjazd ze strefy GPS");
                 if (distance_in_meter > dystans_do_wyjazdu) {
                     config.log("Wyjazd z obszaru bramy", gps);
