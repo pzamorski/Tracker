@@ -31,7 +31,14 @@
 
             ></service>
         <service
-            android:foregroundServiceType="connectedDevice"
+            android:foregroundServiceType="location"
+            android:name=".LocationService"
+            android:enabled="true"
+            android:exported="true"
+
+            ></service>
+
+        <service
             android:name=".bluetooth"
             android:enabled="true"
             android:exported="true"

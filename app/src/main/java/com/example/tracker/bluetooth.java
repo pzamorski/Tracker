@@ -22,30 +22,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.SettingsClient;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 
 
 public class bluetooth extends Service {
@@ -70,6 +47,8 @@ public class bluetooth extends Service {
 
         config.init("global_para");
         config.init_log("main_logcat", "log");
+
+
 //dla bluetooh
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
@@ -80,10 +59,14 @@ public class bluetooth extends Service {
 //start jesli bluettoh triger nie właczony
         if (!config.getParaBoolean("trigerBluetoth")) {
             Intent i = new Intent(context, pracaWtle.class);
+
             if(!isMyServiceRunning(pracaWtle.class))
             {
-                context.startService(i);
-            }
+
+                startService(i);
+                //locationService.Start();
+
+           }
         }
 
 //zmienne przepisywane przy starcie usługi
@@ -122,6 +105,8 @@ public class bluetooth extends Service {
                 BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
                 if (config.getParaString(device.getName() + "|" + device.getAddress()).equals(device.getName() + "|" + device.getAddress()) && config.getParaBoolean("trigerBluetoth") == true) {
                     config.log("Bluetooth Połączony: " + device.getName(), bluetooh);
+
+
                     if(!isMyServiceRunning(pracaWtle.class))
                     {
                         context.startService(i);
